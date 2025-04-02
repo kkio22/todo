@@ -10,9 +10,6 @@ public class Schedule extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String username;
-
     @Column(nullable = false)
     private String title;
 
@@ -20,7 +17,7 @@ public class Schedule extends BaseEntity {
     private String contents;
 
     @ManyToOne
-    @JoinColumn(name="user_id")//엔티티 클래스명_id => 외래 키 생성하는 법
+    @JoinColumn(name = "user_id", nullable = false)//엔티티 클래스명_id => 외래 키 생성하는 법
     private User user;
 
 

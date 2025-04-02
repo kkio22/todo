@@ -19,4 +19,6 @@ public class BaseEntity {
     private LocalDateTime createdAt;
 
     private LocalDateTime modifiedAt;
+
+
 }
