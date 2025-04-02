@@ -1,5 +1,6 @@
 package com.example.todo.dto;
 
+import com.example.todo.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -7,7 +8,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ScheduleRequestDto {
 
-    private String username;
+    private Long userId;
 
     private String title;
 
