@@ -1,5 +1,5 @@
 # API 명세서 (사용자)
-
+https://github.com/kkio22/todo/blob/main/README.md
 | 기능             	| HTTP METHOD 	| URL      	| PathVariable 	| RequestParam 	| RequestBody                                                          	| Response                                                                                                                                                                        	| HttpStatus                      	|
 |------------------	|-------------	|----------	|--------------	|--------------	|----------------------------------------------------------------------	|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|---------------------------------	|
 | 사용자 조회      	| GET         	| users    	| X            	| X            	| X                                                                    	| [<br>{<br>    id:1<br>    "username": "Alice",<br>    "email": "Alice@email.com"<br>},<br><br>{<br>    id:2<br>    "username": "god",<br>    "email": "god@email.com"<br>}<br>] 	|                                 	|
@@ -11,3 +11,4 @@
 
 
 
+![Image](https://github.com/user-attachments/assets/16532abd-8981-4263-a715-4833b183c9e4)
