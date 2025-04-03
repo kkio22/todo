@@ -8,8 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -20,7 +18,8 @@ public class UserController {
     public ResponseEntity<UserResponseDto> save(@RequestBody UserRequestDto requestDto) {
         UserResponseDto userResponseDto = userService.save(
                 requestDto.getUsername(),
-                requestDto.getEmail()
+                requestDto.getEmail(),
+                requestDto.getPassword()
         );
         return new ResponseEntity<>(userResponseDto, HttpStatus.CREATED);
     }
@@ -30,13 +29,14 @@ public class UserController {
         return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<UserResponseDto> updateUser(
             @PathVariable Long id,
             @RequestBody UserRequestDto requestDto
     ) {
         UserResponseDto userResponseDto = userService.updateUser(
                 id,
+                requestDto.getPassword(),
                 requestDto.getUsername(),
                 requestDto.getEmail()
         );
@@ -46,9 +46,14 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")//id는 해당 id가 있는 전체 행을 처리 가능하다.
-    public ResponseEntity<String> deleteUser(@PathVariable Long id){
-
-        userService.deleteUser(id);
+    public ResponseEntity<String> deleteUser(
+            @PathVariable Long id,
+            @RequestBody UserRequestDto requestDto
+    )
+    {
+        userService.deleteUser(
+                id,
+                requestDto.getPassword());
 
         return ResponseEntity.ok("사용자를 삭제했습니다.");
     }
