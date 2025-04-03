@@ -11,5 +11,4 @@ public class ScheduleResponseDto {
     private String title;
     private String contents;
 
-
 }
