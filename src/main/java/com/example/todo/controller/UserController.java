@@ -3,9 +3,11 @@ package com.example.todo.controller;
 import com.example.todo.dto.UserRequestDto;
 import com.example.todo.dto.UserResponseDto;
 import com.example.todo.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,7 +17,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/user")
-    public ResponseEntity<UserResponseDto> save(@RequestBody UserRequestDto requestDto) {
+    public ResponseEntity<UserResponseDto> save(@Valid @RequestBody UserRequestDto requestDto) {
         UserResponseDto userResponseDto = userService.save(
                 requestDto.getUsername(),
                 requestDto.getEmail(),
@@ -32,8 +34,8 @@ public class UserController {
     @PatchMapping("/{id}")
     public ResponseEntity<UserResponseDto> updateUser(
             @PathVariable Long id,
-            @RequestBody UserRequestDto requestDto
-    ) {
+            @Valid @RequestBody UserRequestDto requestDto
+    ) {//valid는 자바의 표준 어노테이션이고, validated는 스프링이 제공하는 어노테이션
         UserResponseDto userResponseDto = userService.updateUser(
                 id,
                 requestDto.getPassword(),
@@ -48,7 +50,7 @@ public class UserController {
     @DeleteMapping("/{id}")//id는 해당 id가 있는 전체 행을 처리 가능하다.
     public ResponseEntity<String> deleteUser(
             @PathVariable Long id,
-            @RequestBody UserRequestDto requestDto
+            @Valid @RequestBody UserRequestDto requestDto
     )
     {
         userService.deleteUser(

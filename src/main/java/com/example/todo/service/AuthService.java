@@ -13,11 +13,11 @@ import org.springframework.web.server.ResponseStatusException;
 public class AuthService {
 //로그인 성공 시 세션 생성은 서비스에서 작성
     private final UserRepository userRepository;
-    private final HttpSession httpSession;
 
-    public AuthService(UserRepository userRepository, HttpSession httpSession) {
+
+    public AuthService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.httpSession = httpSession;
+
     }
 
     public SignInResponseDto login(String email, String password, HttpServletRequest httpServletRequest) {
@@ -30,7 +30,7 @@ public class AuthService {
         }
 
         HttpSession session = httpServletRequest.getSession(true);//세션 생성
-        //
+
         session.setAttribute("userId", findEmail.getId());
 
         return new SignInResponseDto(findEmail.getId(),findEmail.getUsername(), "로그인에 성공했습니다.");//로그인 성공하면 보내줄 값을 여기다 작성

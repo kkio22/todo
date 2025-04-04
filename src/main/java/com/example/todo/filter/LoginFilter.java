@@ -16,7 +16,7 @@ import java.util.List;
 @Component//로그인 이후 요청 => 클라이언트 세션가지고 있음, 세션 유효성 검증을 filter에서 함
 public class LoginFilter implements Filter {
     //인증하지 않고 그냥 들어갈 수 있는 url
-    private static final List<String> excludeUrls = List.of("/login", "/users/user");
+    private static final List<String> excludeUrls = List.of("/users/login", "/users/user");
 
     //filter을 implements해야 doFilter()매서드를 강제로 가져와서 핉터 역할을 할 수 있다.
     @Override//들어오는 요청을 강제로 매핑함

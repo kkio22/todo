@@ -5,10 +5,10 @@ import jakarta.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class WebConfig {//servlet인 LoginFilter을 spring boot에서 의존성 주입등 편하게 사용하기 위해 bean으로 등록하려고 만든 것
-
+public class WebConfig implements WebMvcConfigurer {
     @Bean//매서드로 bean 등록(@Autowired로 생성자 주입)
     public FilterRegistrationBean<LoginFilter> loginFilter() {
         //FilterRegistrationBean 역할

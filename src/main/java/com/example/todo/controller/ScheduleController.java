@@ -4,11 +4,15 @@ import com.example.todo.dto.ScheduleRequestDto;
 import com.example.todo.dto.ScheduleResponseDto;
 import com.example.todo.entity.Schedule;
 import com.example.todo.service.ScheduleService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,9 +24,11 @@ public class ScheduleController {
 
 
     @PostMapping("/schedule")
-    public ResponseEntity<ScheduleResponseDto> save(@RequestBody ScheduleRequestDto requestDto) {
+    public ResponseEntity<ScheduleResponseDto> save(@Valid @RequestBody ScheduleRequestDto requestDto, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("userId");
         ScheduleResponseDto scheduleResponseDto = scheduleService.save(
-                requestDto.getUserId(),
+                userId,
                 requestDto.getTitle(),
                 requestDto.getContents()
 
@@ -37,10 +43,12 @@ public class ScheduleController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ScheduleResponseDto> updateSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto requestDto){
+    public ResponseEntity<ScheduleResponseDto> updateSchedule(@PathVariable Long id, @Valid @RequestBody ScheduleRequestDto requestDto, HttpServletRequest request){
+        HttpSession session = request.getSession();//HttpServletRequest으로 받으니까 getsession()매서드 사용 가능, HttpServletRequest 안에 있음
+        Long userId = (Long) session.getAttribute("userId");
         ScheduleResponseDto scheduleResponseDto  = scheduleService.updateSchedule(
                 id,
-                requestDto.getUserId(),
+                userId,
                 requestDto.getTitle(),
                 requestDto.getContents()
         );
@@ -49,8 +57,13 @@ public class ScheduleController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteSchedule(@PathVariable Long id) {
-        scheduleService.deleteSchedule(id);
+    public ResponseEntity<String> deleteSchedule(@PathVariable Long id, HttpServletRequest request ) {//@RequestBody 없어도 됨
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("userId");
+        scheduleService.deleteSchedule(
+                id,
+                userId
+        );
         return ResponseEntity.ok("일정을 삭제했습니다");
     }
 

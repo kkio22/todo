@@ -53,14 +53,18 @@ public class ScheduleService {
             //jpa에서 repository를 이용해 데이터를 조회하면 DB의 데이터를 Entity 객체로 변환해서 준다. 그래서 변수에는 해당 entity객체가 있어서 자료형도 객체 클래스가 됨. 그래서 클래스를 선언하면, 해당 클래스 매서드 쓸 수 있는 것 처럼 변수명.매서드명으로 사용가능한 것
             Schedule updateSchedule = scheduleRepository.save(findschedule);//DB에 있는 해당 Id의 모든 column값 가지고 나옴
             return new ScheduleResponseDto(findschedule.getUser().getUsername(), findschedule.getTitle(), findschedule.getContents());
-        } else throw new IllegalArgumentException("사용자가 없습니다");
+        } else throw new IllegalArgumentException("권한이 없습니다.");
 
     }
 
 
-    public void deleteSchedule(Long id) {
-
-        scheduleRepository.findById(id);
+    public void deleteSchedule(Long id, Long userId) {
+        Schedule findSchedule = scheduleRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+       //optional에서 값을 꺼내고 없으면 예외처리
+        if(!findSchedule.getUser().getId().equals (userId)){
+            throw new IllegalArgumentException("권한이 없습니다");
+        }
+        scheduleRepository.delete(findSchedule);//해당 id에 대한 객체니까 가능!
     }
 
 

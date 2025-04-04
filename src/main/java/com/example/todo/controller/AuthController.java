@@ -4,7 +4,7 @@ import com.example.todo.dto.SignInRequestDto;
 import com.example.todo.dto.SignInResponseDto;
 import com.example.todo.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +24,7 @@ public class AuthController {//회원가입은 이미 끝남 -> 로그인 API를
     }
 
     @PostMapping("/login")
-    public ResponseEntity<SignInResponseDto> signIn(@RequestBody SignInRequestDto requestDto, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<SignInResponseDto> signIn(@Valid @RequestBody SignInRequestDto requestDto, HttpServletRequest httpServletRequest) {
         SignInResponseDto signIn = authService.login(
                 requestDto.getEmail(),
                 requestDto.getPassword(),
@@ -33,5 +33,5 @@ public class AuthController {//회원가입은 이미 끝남 -> 로그인 API를
         );
         return new ResponseEntity<>(signIn, HttpStatus.OK);
     }
-
+//그룹 사용하거나 스프링에서만 사용하는 어노테이션 사용하면 validated사용
 }
