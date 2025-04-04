@@ -19,11 +19,11 @@ public class Schedule extends BaseEntity {
     private String contents;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)//엔티티 클래스명_id => 외래 키 생성하는 법
-    private User user;//객체 지향 관점: user 객체 바로 사용 가능 user.getUsername(), DB에서는 user의 식별자 id 숫자가 저장된
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
 
-    public Schedule() {//필수
+    public Schedule() {//Entity 생성자 필수
 
     }
 

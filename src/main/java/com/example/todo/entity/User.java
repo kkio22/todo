@@ -13,7 +13,7 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)//동명이인이 있을 수 있으니 unique = true로 하면 안 됨
+    @Column(nullable = false)//동명인때문에 false로 지정
     private String username;
 
     @Column(nullable = false, unique = true)

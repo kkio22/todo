@@ -33,7 +33,7 @@ public class AuthService {
 
         session.setAttribute("userId", user.getId());
 
-        return new SignInResponseDto(user.getId(),user.getUsername(), "로그인에 성공했습니다.");//로그인 성공하면 보내줄 값을 여기다 작성
+        return new SignInResponseDto(user.getId(),user.getUsername(), "로그인에 성공했습니다.");
 
 
     }

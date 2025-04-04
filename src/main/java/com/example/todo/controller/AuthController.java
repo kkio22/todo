@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/users")
-public class AuthController {//회원가입은 이미 끝남 -> 로그인 API를 보내서 내 이메일과 비밀번호가 있는지 확인하고, 있으면 로그인 성공!
-    //=> 로그인 성공 시 세션을 생성(쿠키는 자동으로 spring이 만들어서 보내줌)
+public class AuthController {
 
     private final AuthService authService;
 
@@ -33,5 +32,5 @@ public class AuthController {//회원가입은 이미 끝남 -> 로그인 API를
         );
         return new ResponseEntity<>(signIn, HttpStatus.OK);
     }
-//그룹 사용하거나 스프링에서만 사용하는 어노테이션 사용하면 validated사용
+
 }

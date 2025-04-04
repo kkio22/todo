@@ -35,7 +35,7 @@ public class UserController {
     public ResponseEntity<UserResponseDto> updateUser(
             @PathVariable Long id,
             @Valid @RequestBody UserRequestDto requestDto
-    ) {//valid는 자바의 표준 어노테이션이고, validated는 스프링이 제공하는 어노테이션
+    ) {
         UserResponseDto userResponseDto = userService.updateUser(
                 id,
                 requestDto.getPassword(),

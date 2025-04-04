@@ -14,7 +14,7 @@ import java.util.List;
 //에러용 dto
 @Getter
 @Builder
-@JsonInclude(JsonInclude.Include.NON_NULL)//null 또는 빈 값이면, json 응답에서 해당 필드를 제외한다.
+@JsonInclude(JsonInclude.Include.NON_NULL)//null 또는 빈 값이면, json 응답에서 해당 필드를 제외
 public class ErrorResponse {
     private final LocalDateTime timestamp = LocalDateTime.now();
     private final int status;
