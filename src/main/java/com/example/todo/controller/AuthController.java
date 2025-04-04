@@ -25,7 +25,7 @@ public class AuthController {//회원가입은 이미 끝남 -> 로그인 API를
 
     @PostMapping("/login")
     public ResponseEntity<SignInResponseDto> signIn(@Valid @RequestBody SignInRequestDto requestDto, HttpServletRequest httpServletRequest) {
-        SignInResponseDto signIn = authService.login(
+        SignInResponseDto signIn = authService.signIn(
                 requestDto.getEmail(),
                 requestDto.getPassword(),
                 httpServletRequest
