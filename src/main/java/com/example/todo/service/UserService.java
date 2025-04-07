@@ -4,6 +4,7 @@ import com.example.todo.config.PasswordEncoder;
 import com.example.todo.dto.UserResponseDto;
 import com.example.todo.entity.User;
 import com.example.todo.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -19,7 +20,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
+    @Transactional
     public UserResponseDto save(String username, String email, String password) {
 
 
@@ -30,7 +31,7 @@ public class UserService {
         return new UserResponseDto(saveUser.getId(), saveUser.getUsername(), saveUser.getEmail());
 
     }
-
+    @Transactional
     public UserResponseDto findById(Long id) {
 
         User user = userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
@@ -39,7 +40,7 @@ public class UserService {
         return new UserResponseDto(user.getId(), user.getUsername(), user.getEmail());
     }
 
-
+    @Transactional
     public UserResponseDto updateUser(Long id, String password, String username, String email) {
         User user = userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
 
@@ -52,7 +53,7 @@ public class UserService {
 
         return new UserResponseDto(user.getId(), user.getUsername(), user.getEmail());
     }
-
+    @Transactional
     public void deleteUser(Long id, String password) {
         User user = userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
         if (!passwordEncoder.matches(user.getPassword(), password)) {

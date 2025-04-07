@@ -20,7 +20,7 @@ public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final UserRepository userRepository;
 
-
+    @Transactional
     public ScheduleResponseDto save(Long userId, String title, String contents) {
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다")); //해당 id에 저장된 user 값 다 나옴 즉, user클래스
         Schedule schedule = new Schedule(user, title, contents);
@@ -29,7 +29,7 @@ public class ScheduleService {
 
 
     }
-
+    @Transactional
     public ScheduleResponseDto findById(Long id) {
 
         Schedule schedule = scheduleRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -39,7 +39,7 @@ public class ScheduleService {
 
         return new ScheduleResponseDto(user.getUsername(), schedule.getTitle(), schedule.getContents());
     }
-
+    @Transactional
     public ScheduleResponseDto updateSchedule(Long id, Long userId, String title, String contents) {
 
 
@@ -53,7 +53,7 @@ public class ScheduleService {
         return new ScheduleResponseDto(schedule.getUser().getUsername(), schedule.getTitle(), schedule.getContents());
     }
 
-
+    @Transactional
     public void deleteSchedule(Long id, Long userId) {
         Schedule schedule = scheduleRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
